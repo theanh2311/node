@@ -2,7 +2,7 @@ var express = require('express');
 
 var experssHDS = require('express-handlebars')
 
-
+var app2 = express()
 var app = express()
 app.engine('handlebars',experssHDS({
    layoutsDir:__dirname + '/views/layouts',
@@ -10,10 +10,15 @@ app.engine('handlebars',experssHDS({
 }))
 app.set('view engine','handlebars')
 app.get('/',function (request,response){
-   var dulieu = 'heloo';
-   var arr = [2,3,4,6,7,3,1,5,76];
-   response.render('home',{title:dulieu});
+   response.render('home');
 });
+app.get('/mainpage',function (request,response){
+   response.render('homepage');
+});
+
+
+
+
 
 app.post('/login',function (request,response) {
 

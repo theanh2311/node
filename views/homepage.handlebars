@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tinder</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+        }
+        .side {
+            min-width: 320px;
+            height: 200px;
+            background-color: #fff;
+            height: 100%;
+            min-height: 100vh;
+            border-right: 1px solid #e1e1e1;
+        }
+        .content {
+            width: 100%;
+            display: flex;
+            padding: 20px 0;
+            align-items: center;
+            flex-direction: column;
+        }
+        .side .header {
+            background: linear-gradient(262deg, #ff7854, #fd267d);
+            width: 100%;
+            height: 80px;
+            box-shadow: 0 1px 8px 0 rgba(0, 20, 20, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .side .header .avatar img {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 8px 0 rgba(0, 20, 20, 0.2);
+        }
+
+        .side .header .title {
+            padding: 0 10px;
+            color: #fff;
+            font-size: 23px;
+        }
+
+        .side .menu ul {
+            display: flex;
+            padding: 0 20px;
+        }
+
+        .side .menu ul li {
+            list-style: none;
+            margin: 0 10px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .side .menu .active {
+            border-bottom: 3px solid #fd5068;
+            padding-bottom: 2px;
+        }
+
+        .side .messages {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            transition: 0.2s box-shadow;
+        }
+
+        .side .messages .avatar img {
+            width: 70px;
+            height: 70px;
+            border-radius: 70px;
+        }
+
+        .side .messages .user {
+            padding: 0 10px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            font-size: 18px;
+        }
+
+        .side .messages .text {
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+            font-weight: 300;
+            font-size: 15px;
+            opacity: 0.8;
+        }
+
+        .side .messages:hover {
+            box-shadow: 0 0 15px 0 rgba(43, 78, 78, 0.1);
+            border-right: 5px solid #fd5068;
+        }
+
+        .container .card {
+            position: relative;
+            height: 450px;
+        }
+
+        .content .card .user {
+            width: 380px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 1px 10px 0 rgba(0, 20, 20, 0.5);
+        }
+
+        .content .card .user .profile {
+            position: absolute;
+            bottom: 0px;
+            left: 20px;
+        }
+
+        .content .card .user .name {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 5px #444;
+        }
+
+        .content .card .user .name span {
+            font-size: 26px;
+        }
+
+        .content .card .local {
+            display: flex;
+            align-items: center;
+            padding: 0 0 20px 0;
+        }
+
+        .content .card .local i {
+            margin: 5px 0;
+            color: #fff;
+        }
+
+        .content .card .local span {
+            color: #fff;
+            padding: 0 10px;
+            text-shadow: 1px 1px 5px #444;
+        }
+
+        .content .buttons {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content .buttons .no i {
+            color: #fd2e79;
+            font-size: 33px;
+        }
+
+        .content .buttons .star i {
+            color: #2bb1ff;
+            font-size: 22px;
+        }
+
+        .content .buttons .heart i {
+            color: #11e298;
+            font-size: 32px;
+        }
+
+        .content .buttons .no,
+        .content .buttons .star,
+        .content .buttons .heart {
+            background-color: #fff;
+            width: 70px;
+            height: 70px;
+            box-shadow: 0 1px 10px 0 rgba(0, 20, 20, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 70px;
+            margin: 4px;
+            transition: 0.2s transform;
+        }
+
+        .content .buttons .no:hover,
+        .content .buttons .star:hover,
+        .content .buttons .heart:hover {
+            transform: scale(1.1);
+        }
+
+        .content .buttons .star {
+            width: 60px;
+            height: 60px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="side">
+        <div class="header">
+            <div class="avatar">
+                <img src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.6435-9/125193524_1270732563277888_9096111883072286340_n.jpg?_nc_cat=102&ccb=1-
+                3&_nc_sid=09cbfe&_nc_ohc=6mFNcsea01YAX_fcP1J&_nc_ht=scontent.fhan2-1.fna&oh=7fee8f674defa20f7b75dd0f8043047b&oe=608ECA71" alt="" />
+            </div>
+            <div class="title">My Profile</div>
+        </div>
+        <div class="menu">
+            <ul>
+                <li>Matches</li>
+                <li class="active">Message</li>
+            </ul>
+        </div>
+        <div class="messages">
+            <div class="avatar">
+                <img src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.6435-1/p200x200/150203607_715889495767684_1429754964944965188_n.jpg?_nc_cat=101&
+                ccb=1-3&_nc_sid=7206a8&_nc_ohc=u-lZBqU9XaUAX_WcFWY&_nc_ht=scontent.fhan2-1.fna&tp=6&oh=9c38a6e1e01d193354c676f4817e3e15&oe=608F260D" alt="" />
+            </div>
+            <div class="message">
+                <div class="user">Biên</div>
+                <div class="text">ok chú</div>
+            </div>
+        </div>
+        <div class="messages">
+            <div class="avatar">
+                <img src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.6435-9/144924193_457095645319774_4109695210864113816_n.jpg?_nc_cat=101&ccb=1-3&_nc_
+                sid=09cbfe&_nc_ohc=KWk8EXtK1bUAX-cEKE-&_nc_ht=scontent.fhan2-1.fna&oh=8271527f3b0651e57b92ab4d20a1e2a8&oe=608E7CD1" alt="" />
+            </div>
+            <div class="message">
+                <div class="user">Chương</div>
+                <div class="text">k thì ngồi vs cánh con gái ấy</div>
+            </div>
+        </div>
+        <div class="messages">
+            <div class="avatar">
+                <img src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.6435-1/c0.0.200.200a/p200x200/46753914_551488301984918_9008397984408272896_n.jpg?_n
+                c_cat=108&ccb=1-3&_nc_sid=7206a8&_nc_ohc=PxWsY_u3GeIAX8jHmnw&_nc_ht=scontent.fhan2-3.fna&tp=27&oh=f38cb2cbaca7cc18185ff3c6a8613e7b&oe=608CD771" alt="" />
+            </div>
+            <div class="message">
+                <div class="user">Quang</div>
+                <div class="text">Alo</div>
+            </div>
+        </div>
+        <div class="messages">
+            <div class="avatar">
+                <img src="https://1.bp.blogspot.com/-A7UYXuVWb_Q/XncdHaYbcOI/AAAAAAAAZhM/hYOevjRkrJEZhcXPnfP42nL3ZMu4PvIhgCLcBGAsYHQ/s1600/Trend-Avat
+                ar-Facebook%2B%25281%2529.jpg" alt="" />
+            </div>
+            <div class="message">
+                <div class="user">Hiếu</div>
+                <div class="text">:)))</div>
+            </div>
+        </div>
+        <div class="messages">
+            <div class="avatar">
+                <img src="https://scontent.fhan2-3.fna.fbcdn.net/v/t1.6435-1/p200x200/162026805_913542656070531_8016339683858306419_n.jpg?_nc
+                _cat=108&ccb=1-3&_nc_sid=7206a8&_nc_ohc=ZOkEHr4dWJYAX9hdQnr&_nc_ht=scontent.fhan2-3.fna&tp=6&oh=01e0a3fcd2c05e8cd0ff75def517ab69&oe=608D70DE" alt="" />
+            </div>
+            <div class="message">
+                <div class="user">Hùng</div>
+                <div class="text">Ê</div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="user">
+                <img
+                        class="user"
+                        src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.6435-9/144924193_457095645319774_4109695210864113816_n.jpg?_nc_cat=101&ccb=1-3&_nc
+                        _sid=09cbfe&_nc_ohc=KWk8EXtK1bUAX-cEKE-&_nc_ht=scontent.fhan2-1.fna&oh=8271527f3b0651e57b92ab4d20a1e2a8&oe=608E7CD1"
+                        alt=""
+                />
+                <div class="profile">
+                    <div class="name">Nguyễn Minh Chương <span>20</span></div>
+                    <div class="local">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Quang Minh-Kiến Xương-Thái Bình</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="no">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="star">
+                <i class="fas fa-star fa"></i>
+            </div>
+            <div class="heart">
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>
